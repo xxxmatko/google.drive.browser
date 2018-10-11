@@ -9,7 +9,7 @@
                 "command": "C:/Program Files (x86)/Mozilla Firefox/firefox.exe"
             },
             "args": [
-                "http://localhost:8001"
+                "http://localhost:8001/wwwroot"
             ],
             "problemMatcher": []
         },{
