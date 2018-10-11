@@ -5,7 +5,12 @@ module.exports = function (grunt) {
         package: grunt.file.readJSON("package.json"),
         clean: {
             wwwroot: [
-                "wwwroot/**/*"
+                "wwwroot/css",
+                "wwwroot/js/components",
+                "wwwroot/js/libs",
+                "wwwroot/js/config.js",
+                "wwwroot/js/main.js",
+                "wwwroot/index.html"
             ]
         },
         copy: {
