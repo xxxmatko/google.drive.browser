@@ -64,6 +64,7 @@
         if(isSignedIn) {
             this.isConnected(true);
             this.isSignedIn(true);
+            this.listFiles();
             return;
         }
 
