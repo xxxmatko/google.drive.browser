@@ -44,11 +44,11 @@
         this.isConnected(true);
         this.isConnecting(false);
 
-        // Listen for sign-in state changes.
-        api.auth2.getAuthInstance().isSignedIn.listen(this._onStatuChanged.bind(this));
-
         this.isSignedIn(api.auth2.getAuthInstance().isSignedIn.get());
         this.listFiles();
+        
+        // Listen for sign-in state changes.
+        api.auth2.getAuthInstance().isSignedIn.listen(this._onStatuChanged.bind(this));
     };
 
 
@@ -58,12 +58,17 @@
      * @param {boolean} isSignedIn If set to true user is signed in.
      */
     Model.prototype._onStatuChanged = function (isSignedIn) {
+        if(this.isSignedIn() === isSignedIn) {
+            return;
+        }
+        
         this.nextPage("");
         this.files([]);
 
         if(isSignedIn) {
             this.isConnected(true);
             this.isSignedIn(true);
+            this.listFiles();
             return;
         }
 
