@@ -70,6 +70,8 @@
         this.isSignedIn(false);
         this.isConnecting(false);
         this.isConnected(false);
+        this.nextPage("");
+        this.files([]);
     };
 
 
@@ -200,6 +202,7 @@
 	 */
     Model.prototype.signOut = function () {
         api.auth2.getAuthInstance().signOut();
+
     };    
     
 
@@ -331,6 +334,27 @@
     };
 
 
+    /**
+     * Deletes file.
+     * 
+     * @param {object} file File to delete
+     */
+    Model.prototype.deleteFile = function (file) {
+        var q = confirm("Do you want to delete file '" + file.name + "'?");
+        if(!q) {
+            return;
+        }
+
+        var $this = this;
+
+        gapi.client.drive.files.delete({
+            fileId:file.id
+        }).then(function() {
+            $this.files.remove(file);
+        });
+    };
+
+    
     /**
      * Dispose.
      */

@@ -38,9 +38,12 @@
                         <i class="material-icons left">
                             <img data-bind="attr: { src: iconLink.replace('/16/', '/32/') }" />
                         </i>
-                        <!-- ko text: name--><!-- /ko -->
+                        <span data-bind="text: name"></span>
                         <b class="right" data-bind="text: $parent._size($data.size)"></b>
                     </a>
+                    <a class="btn-flat" data-bind="click: $parent.deleteFile.bind($parent)">
+                        <i class="material-icons">delete</i>
+                    </a>                    
                 </li>
             </ul>
         </div>

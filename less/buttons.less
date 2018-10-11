@@ -21,7 +21,12 @@
 .btn-flat {
     &.btn-flat--file {
         padding: 0;
-        width: 100%;
+        display: flex;
+        flex: 1;
         text-transform: none;
+
+        > span {
+            flex: 1;
+        }
     }
 }
