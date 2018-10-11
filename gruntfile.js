@@ -5,12 +5,7 @@ module.exports = function (grunt) {
         package: grunt.file.readJSON("package.json"),
         clean: {
             wwwroot: [
-                "wwwroot/css",
-                "wwwroot/js/components",
-                "wwwroot/js/libs",
-                "wwwroot/js/config.js",
-                "wwwroot/js/main.js",
-                "wwwroot/index.html"
+                "wwwroot/**/*"
             ]
         },
         copy: {
@@ -31,6 +26,23 @@ module.exports = function (grunt) {
                     }
                 }]
             },
+            app: {
+                options: {
+                    process: function (content, srcpath) {
+                        return content
+                            .replace(/\{version\}/g, grunt.config("package").version)
+                            .replace(/\{homepage\}/g, "https://xxxmatko.github.io/google.drive.browser/")
+                            .replace(/\{cacheBust\}/g, new Date().getTime());
+                    }
+                },
+                files: [{
+                    expand: true,
+                    src: ["app.xhtml"],
+                    rename: function () {
+                        return "wwwroot/app.html";
+                    }
+                }]
+            },            
             materialize: {
                 options: {
                     process: function (content, srcpath) {
@@ -148,6 +160,7 @@ module.exports = function (grunt) {
         // List of tasks
         var tasks = [
             "copy:index",
+            "copy:app",
             "copy:materialize",
             "copy:js",
             "copy:css",
