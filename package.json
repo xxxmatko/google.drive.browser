@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "name": "gdapi",
+    "name": "google.drive.browser",
     "private": true,
     "homepage": "http://localhost:8001/",
     "devDependencies": {
