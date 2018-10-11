@@ -48,10 +48,7 @@
         api.auth2.getAuthInstance().isSignedIn.listen(this._onStatuChanged.bind(this));
 
         this.isSignedIn(api.auth2.getAuthInstance().isSignedIn.get());
-
-        if(this.isSignedIn()) {
-            this.listFiles();
-        }
+        this.listFiles();
     };
 
 
@@ -61,18 +58,18 @@
      * @param {boolean} isSignedIn If set to true user is signed in.
      */
     Model.prototype._onStatuChanged = function (isSignedIn) {
+        this.nextPage("");
+        this.files([]);
+
         if(isSignedIn) {
             this.isConnected(true);
             this.isSignedIn(true);
-            this.listFiles();
             return;
         }
 
         this.isSignedIn(false);
         this.isConnecting(false);
         this.isConnected(false);
-        this.nextPage("");
-        this.files([]);
     };
 
 
@@ -195,6 +192,7 @@
 	 */
     Model.prototype.signIn = function () {
         api.auth2.getAuthInstance().signIn();
+        this.listFiles();
     };  
 
 
@@ -202,8 +200,9 @@
 	 * Signs out.
 	 */
     Model.prototype.signOut = function () {
+        this.nextPage("");
+        this.files([]);
         api.auth2.getAuthInstance().signOut();
-
     };    
     
 
@@ -213,6 +212,10 @@
      * @param {string} nextPage Next page token.
 	 */
     Model.prototype.listFiles = function (nextPage) {
+        if(!this.isSignedIn()) {
+            return;
+        }
+
         var query = {
             pageSize: 10,
             orderBy: "name",
