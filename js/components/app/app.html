@@ -2,7 +2,7 @@
     <!-- ko if: !isConnected() -->
     <div class="row center">
         <div class="col s12">
-            <button class="btn-large blue lighten-2" data-bind="click: connect, disable: isConnecting">
+            <button class="btn-large blue" data-bind="click: connect, disable: isConnecting">
                 <i class="material-icons left">
                     <svg width="24" height="24" viewBox="0 0 24 24">
                         <path d="M7.71,3.5L1.15,15L4.58,21L11.13,9.5M9.73,15L6.3,21H19.42L22.85,15M22.28,14L15.42,2H8.58L8.57,2L15.43,14H22.28Z" />
@@ -16,10 +16,13 @@
     <!-- ko if: isConnected() -->
     <div class="row center">
         <div class="col s12">
-            <button class="btn-large blue lighten-2" data-bind="visible: !isSignedIn(), click: signIn">
+            <button class="btn-large blue" data-bind="visible: !isSignedIn(), click: signIn">
                 Authorize
             </button>
-            <button class="btn-large red lighten-2" data-bind="visible: isSignedIn(), click: signOut">
+            <button class="btn-large blue" data-bind="visible: isSignedIn(), click: createFile">
+                Create
+            </button>  
+            <button class="btn-large red" data-bind="visible: isSignedIn(), click: signOut">
                 Sign out
             </button>            
         </div>
@@ -44,7 +47,7 @@
         <!-- /ko -->
         <!-- ko if: nextPage().length -->
         <div class="col s12 center">
-            <button class="btn green lighten-2" data-bind="click: listFiles.bind($data, nextPage())">
+            <button class="btn green" data-bind="click: listFiles.bind($data, nextPage())">
                 Next
             </button>
         </div>        
