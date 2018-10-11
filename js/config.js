@@ -14,8 +14,8 @@
     },
     config: {
         "gdapi/components/app/app": {
-            apiKey: "AIzaSyAe71ITLk0oFWmFlyox7Tsm-ZkKrbXsJek",
-            clientId: "276479378601-rf7j92loflcd9n49cr904ii8vrqjgsiu.apps.googleusercontent.com",
+            apiKey: "AIzaSyDEOhuBMslfq7dhjIfy8gMsevG0ezeK2fQ",
+            clientId: "276479378601-q32fj761jce8l9m50r31hdfft6p90p42.apps.googleusercontent.com",
             discoveryDocs: [
                 "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"
             ],
