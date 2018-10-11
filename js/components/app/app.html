@@ -36,7 +36,7 @@
                             <img data-bind="attr: { src: iconLink.replace('/16/', '/32/') }" />
                         </i>
                         <!-- ko text: name--><!-- /ko -->
-                        <b class="right" data-bind="text: typeof(size) !== 'undefined' ? Math.round(size / 1024) + ' kB' : '0 kB'"></b>
+                        <b class="right" data-bind="text: $parent._size($data.size)"></b>
                     </a>
                 </li>
             </ul>
