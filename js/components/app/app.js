@@ -28,6 +28,7 @@
         this.isConnected = ko.observable(false);
         this.isConnecting = ko.observable(false);
         this.isSignedIn = ko.observable(false);
+        this.nextPage = ko.observable("");
         this.files = ko.observableArray([]);
     };
 
@@ -47,6 +48,10 @@
         api.auth2.getAuthInstance().isSignedIn.listen(this._onStatuChanged.bind(this));
 
         this.isSignedIn(api.auth2.getAuthInstance().isSignedIn.get());
+
+        if(this.isSignedIn()) {
+            this.listFiles();
+        }
     };
 
 
@@ -74,6 +79,8 @@
      * @param {object} e Arguments.
      */
     Model.prototype._onFilesListed = function (e) {
+        this.nextPage(e.result.nextPageToken ? e.result.nextPageToken : "");
+
         var files = e.result.files;
         
         if (!files || !files.length) {
@@ -81,7 +88,7 @@
             return;
         }
 
-        this.files(files);
+        this.files(this.files().concat(files));
     };       
 
     //#endregion
@@ -171,13 +178,23 @@
 
     /**
 	 * Lists files.
+     * 
+     * @param {string} nextPage Next page token.
 	 */
-    Model.prototype.listFiles = function () {
-        api.client.drive.files.list({
+    Model.prototype.listFiles = function (nextPage) {
+        var query = {
             pageSize: 10,
+            orderBy: "name",
             fields: "*"
-            //fields: "nextPageToken, files(id, name, iconLink, webContentLink, webViewLink, mimeType, size)"
-        }).then(this._onFilesListed.bind(this));
+        };
+
+        if(nextPage) {
+            query.pageToken = nextPage;
+        }        
+
+        api.client.drive.files
+            .list(query)
+            .then(this._onFilesListed.bind(this));
     };   
 
     

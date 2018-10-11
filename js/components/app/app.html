@@ -27,11 +27,6 @@
     <!-- /ko -->
     <!-- ko if: isSignedIn() -->
     <div class="row">
-        <div class="col s12">
-            <button class="btn green lighten-2" data-bind="click: listFiles">
-                List files
-            </button>
-        </div>
         <!-- ko if: files().length -->
         <div class="col s12">
             <ul class="collection" data-bind="foreach: files">
@@ -47,6 +42,13 @@
             </ul>
         </div>
         <!-- /ko -->
+        <!-- ko if: nextPage().length -->
+        <div class="col s12 center">
+            <button class="btn green lighten-2" data-bind="click: listFiles.bind($data, nextPage())">
+                Next
+            </button>
+        </div>        
+        <!-- /ko -->    
     </div>
     <!-- /ko -->    
 </div>
