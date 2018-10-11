@@ -151,7 +151,7 @@
             case "application/vnd.google-apps.photo":
                 return "application/zip";
             case "application/vnd.google-apps.presentation":
-                return "application/zip";
+                return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
             case "application/vnd.google-apps.script":
                 return "application/zip";
             case "application/vnd.google-apps.site":
