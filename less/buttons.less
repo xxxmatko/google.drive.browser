@@ -1,0 +1,27 @@
+@import "_mixins.less";
+
+.btn {
+    font-family: @font-family;
+    font-weight: 600;
+}
+
+.btn-large {
+    font-family: @font-family;
+    font-weight: 600;
+
+    .material-icons {
+        svg {
+            path {
+                fill: @bg-color;
+            }
+        }
+    }
+}
+
+.btn-flat {
+    &.btn-flat--file {
+        padding: 0;
+        width: 100%;
+        text-transform: none;
+    }
+}
