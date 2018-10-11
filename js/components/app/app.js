@@ -280,6 +280,58 @@
 
 
     /**
+     * Creates file.
+     */
+    Model.prototype.createFile = function () {
+        // Create file content
+        var content = prompt("Enter file content", JSON.stringify({x: 123, y: "123"}));
+
+        // Create file
+        var file = new Blob([content], { type: "text/plain" });
+
+        // Create metadata
+        var metadata = {
+            "name": prompt("Enter file name", "test.json") || "Untitled",
+            "mimeType": "application/json"
+            //"parents": [""]
+        };
+
+        // Create form
+        var form = new FormData();
+        form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+        form.append("file", file);
+
+        // Get the token
+        var token = api.client.getToken();
+
+        // Prepare request data
+        var prms = {
+            method: "POST",
+            url: "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&key=" + cnf.apiKey,
+            headers: {
+                "Authorization": [token.token_type, token.access_token].join(" ")
+            },
+            dataType: "json",
+            data: form,
+            processData: false,
+            contentType: false
+        };
+
+        var $this = this;
+
+        // Upload data
+        $.ajax(prms).then(function(data, status, xhr) {
+            $this.files([]);
+            $this.listFiles();
+        });        
+
+        //https://tanaikech.github.io/2018/08/13/upload-files-to-google-drive-using-javascript/
+        //https://www.reddit.com/r/javascript/comments/7c3eti/question_google_drive_api_how_to_upload_a_file/
+        //https://support.vertabelo.com/communities/1/topics/1733-google-drive-api-drivefilescreate-method-file-id-not-found
+    };
+
+
+    /**
      * Dispose.
      */
     Model.prototype.dispose = function () {
